@@ -20,6 +20,7 @@
                         contadorj1 ++
                         println("Columna sumada: $contadorj1")
                         if(contadorj1 == tablero.dimensiones){
+                            println("DEBERIA DE GANAR JUGADOR1")
                             return Pair(true,"X")
                         }
                     }else if(tablero.tablero[fila][columna] == "O"){
