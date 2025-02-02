@@ -1,5 +1,5 @@
 
-fun pedirPosiciones(): Pair<Int,Int> {
+fun pedirPosiciones(tablero: Tablero): Pair<Int,Int> {
     var posicionesCorrectas = false
     var fila = 0
     var columna = 0
@@ -12,14 +12,16 @@ fun pedirPosiciones(): Pair<Int,Int> {
             if (fila < 0 || columna < 0){
                 throw IllegalArgumentException("Error, introduce un número positivo")
             }
-            if (fila !in 1..3 || columna !in 1..3){
-                throw IllegalArgumentException("Error, debes introducir un número del 1 al 3.")
+            if (fila !in 1..3 || columna !in 1..tablero.dimensiones){
+                throw IllegalArgumentException("Error, debes introducir un número del 1 al ${tablero.dimensiones}.")
             }
             posicionesCorrectas = true
         }catch (e: NumberFormatException){
             println("Error, introduce un número")
         }catch (e: IllegalArgumentException){
-            println("Error, introduce un número positivo")
+            println("$e")
+        }catch (e: IllegalArgumentException){
+            println("$e")
         }
     }
     return Pair(fila -1,columna -1)
@@ -27,19 +29,19 @@ fun pedirPosiciones(): Pair<Int,Int> {
 }
 
 
-fun turnoJugador(partida: Jugar, signo: String): Boolean{
+fun turnoJugador(partida: Jugar, signo: String,tablero: Tablero): Boolean{
     var terminaTurno = false
     while (!terminaTurno){
         if(signo == "X"){
             println("Turno jugador1")
-            val (fila,columna) = pedirPosiciones()
+            val (fila,columna) = pedirPosiciones(tablero)
             if(partida.ponerSigno(fila,columna, "X")) {
                 terminaTurno = true
             }
 
             }else if(signo == "O"){
                 println("Turno jugador2")
-                val (fila,columna) = pedirPosiciones()
+                val (fila,columna) = pedirPosiciones(tablero)
                 if(partida.ponerSigno(fila,columna, "O")){
                     terminaTurno = true
                 }
@@ -61,13 +63,13 @@ fun comprobarGanador(partida: Jugar): Boolean{
     return false
 }
 
-fun iniciarJuego(partida: Jugar): Boolean {
+fun iniciarJuego(partida: Jugar,tablero: Tablero): Boolean {
     var partidaFinalizada = false
     while (!partidaFinalizada) {
         partida.tablero.mostrarTablero()
         var turnoJugador = "jugador1"
         while (turnoJugador == "jugador1" && !partidaFinalizada) {
-            if (turnoJugador(partida, partida.jugador1.signo)) {
+            if (turnoJugador(partida, partida.jugador1.signo,tablero)) {
                 if (comprobarGanador(partida)) {
                     partida.tablero.mostrarTablero()
                     println("Ha ganado el jugador 1")
@@ -80,7 +82,7 @@ fun iniciarJuego(partida: Jugar): Boolean {
         }
         while (turnoJugador == "jugador2" && !partidaFinalizada){
             partida.tablero.mostrarTablero()
-            if (turnoJugador (partida, partida.jugador2.signo)){
+            if (turnoJugador (partida, partida.jugador2.signo,tablero)){
                 if (comprobarGanador(partida)){
                     partida.tablero.mostrarTablero()
                     println("Ha ganado el jugador2")
@@ -104,6 +106,6 @@ fun main() {
     val jugador1 = Jugador("X")
     val jugador2 = Jugador("O")
     val partida1 = Jugar(jugador1,jugador2,tablero1)
-    iniciarJuego(partida1)
+    iniciarJuego(partida1,tablero1)
 
 }
