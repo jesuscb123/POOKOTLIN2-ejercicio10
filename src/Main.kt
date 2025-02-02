@@ -51,9 +51,11 @@ fun turnoJugador(partida: Jugar, signo: String): Boolean{
 
 
 fun comprobarGanador(partida: Jugar): Boolean{
-    var (ganadorFila) = partida.comprobarGanadorFila()
-    var (ganadorColumna) = partida.comprobarGanadorColumna()
-    if(ganadorFila || ganadorColumna){
+    var ganadorFila = partida.comprobarGanadorFila()
+    var ganadorColumna = partida.comprobarGanadorColumna()
+    var ganadorDiagonal = partida.comprobarGanadorDiagonal()
+    var ganadorDiagonalInvertida = partida.comprobarGanadorDiagonalInvertida()
+    if(ganadorFila || ganadorColumna || ganadorDiagonal || ganadorDiagonalInvertida){
         return true
     }
     return false
@@ -92,10 +94,6 @@ fun iniciarJuego(partida: Jugar): Boolean {
     }
     return true
 }
-
-
-
-
 
 
 

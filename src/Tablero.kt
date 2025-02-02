@@ -20,7 +20,7 @@ class Tablero(val dimensiones: Int) {
 
     fun mostrarTablero(){
         for(fila in tablero){
-            println(fila)
+            println(fila.joinToString(" | "))
         }
     }
 
