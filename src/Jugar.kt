@@ -80,17 +80,18 @@ class Jugar(val jugador1: Jugador, val jugador2: Jugador, tablero: Tablero) {
         var contadorJ2 = 0
         for (fila in 0..tablero.tablero.size -1){
             for (columna in 0..tablero.tablero.size -1){
-                if (fila + columna == tablero.tablero.size -1)
-                if (tablero.tablero[fila][columna] == "X"){
-                    contadorJ1++
-                    if (contadorJ1 == tablero.tablero.size){
-                        return true
-                    }
-                }else if(tablero.tablero[fila][columna] == "0"){
-                    contadorJ2++
-                    if (contadorJ2 == tablero.tablero.size){
-                        return true
-                    }
+                if (fila + columna == tablero.tablero.size -1){
+                    if (tablero.tablero[fila][columna] == "X"){
+                        contadorJ1++
+                        if (contadorJ1 == tablero.tablero.size) {
+                            return true
+                        }
+                    }else if(tablero.tablero[fila][columna] == "0"){
+                            contadorJ2++
+                            if (contadorJ2 == tablero.tablero.size){
+                                return true
+                            }
+                        }
                 }
             }
         }
